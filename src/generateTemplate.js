@@ -6,10 +6,10 @@ const Intern = require('../lib/Intern');
 
 function generateHTML(promptData) {
     console.log("promptData", promptData)
-    const [ manager, engineer, intern] = promptData;
-    
+    const [manager, engineer, intern] = promptData;
+
     const man = manager;
-    const eng = promptData.filter(employee => employee.getRole() === 'Engineer'); 
+    const eng = promptData.filter(employee => employee.getRole() === 'Engineer');
     const int = promptData.filter(employee => employee.getRole() === 'Intern');
 
     // console.log(manager);
@@ -25,12 +25,13 @@ function generateHTML(promptData) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/7491aaa980.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="../src/style.css">
         <title>Team Profile Generator</title>
-    
     </head>
     
     <body>
-    <header class="d-flex justify-content-center bg-danger text-light p-4 text-center fs-1">My Team</header>
+    <header class="d-flex justify-content-center bg-danger text-light p-4 mb-5 text-center fs-1">My Team</header>
         <div class="container">
             <div class="row" id= "cards">
 
@@ -46,76 +47,65 @@ function generateHTML(promptData) {
 };
 
 
- function generateMan(manager){
+function generateMan(manager) {
     return `  
         <div class="col-4"></div>
         <div class="card col-4 p-0">
             <div class="card-header bg-primary text-white fs-4">
                 ${manager.name} </br>
-                ${manager.getRole()}
+            <i class="fa-solid fa-mug-hot"></i> ${manager.getRole()}
             </div>
             <ul class="list-group list-group-flush text-center">
-                <li class="list-group-item">${manager.id}</li>
-                <li class="list-group-item">${manager.email}</li>
-                <li class="list-group-item">${manager.officeNumber}</li>
+                <li class="list-group-item">ID: ${manager.id}</li>
+                <li class="list-group-item">Email: <a href="mailto:${manager.email}">${manager.email}</a></li>
+                <li class="list-group-item">Office Number: ${manager.officeNumber}</li>
             </ul>
         </div>
         <div class="col-4"></div>
         `;
 };
 
-function generateEng(engineersArr){  
-    // console.log("generateENG LOG: ENGINEER", engineer);
-    const [engineer] = engineersArr;
-
+function generateEng(engineersArr) {
     const newCard = engineersArr.map(makeCard).join(" ");
-
     function makeCard(element, index, array) {
         const card = `  
             <div class="card col-4 p-0">
                 <div class="card-header bg-primary text-white fs-4">
-                    ${engineer.name} </br>
-                    ${engineer.getRole()}
+                    ${element.name} </br>
+                <i class="fa-solid fa-glasses"></i> ${element.getRole()}
                 </div>
                 <ul class="list-group list-group-flush text-center">
-                    <li class="list-group-item">${engineer.id}</li>
-                    <li class="list-group-item">${engineer.email}</li>
-                    <li class="list-group-item">${engineer.github}</li>
+                    <li class="list-group-item">ID: ${element.id}</li>
+                    <li class="list-group-item">Email: <a href="mailto:${element.email}">${element.email}</a></li>
+                    <li class="list-group-item">GItHub: <a href="https://github.com/${element.github}">${element.github}</a></li>
                 </ul>
             </div>
         `;
         return card;
     };
-
     return newCard;
 };
 
-function generateInt(internsArr){
+function generateInt(internsArr) {
     console.log("generateINT LOG: INTERN", internsArr.length);
-    
-    const newCard = internsArr.map(makeCard).join("");
-    console.log("newCArD:", newCard)
-    
-    function makeCard(element, index, internsArr){
-        for(let i = 0; i <= internsArr.length; i++) {
 
-            const [ intern ] = internsArr;
-            
-            const card = `
-                <div class="card col-4 p-0">
-                    <div class="card-header bg-primary text-white fs-4">
-                        ${intern.name} </br>
-                        ${intern.getRole()}
-                    </div>
-                    <ul class="list-group list-group-flush text-center">
-                        <li class="list-group-item">${intern.id}</li>
-                        <li class="list-group-item">${intern.email}</li>
-                        <li class="list-group-item">${intern.school}</li>
-                    </ul>
+    const newCard = internsArr.map(makeCard).join('');
+
+    function makeCard(element, index, internsArr) {
+        const card = `
+            <div class="card col-4 p-0">
+                <div class="card-header bg-primary text-white fs-4">
+                    ${element.name} </br>
+                <i class="fa-solid fa-user-graduate"></i> ${element.getRole()}
                 </div>
-            `;
-            return card;
-        }
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item"> ID: ${element.id}</li>
+                    <li class="list-group-item">Email: <a href="mailto:${element.email}">${element.email}</a></li>
+                    <li class="list-group-item">School: ${element.school}</li>
+                </ul>
+            </div>
+        `;
+        return card;
     };
     return newCard;
 };
