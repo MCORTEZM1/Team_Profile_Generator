@@ -38,11 +38,7 @@ const promptTeam = () => {
 
                 teamMatesArr.push(engineer);
 
-              //  return engineer;
             })
-            // .then(engineer => {
-            //     return generateCardObj.engineerCard(engineer);
-            // })
             .then(promptTeam)
         }
         else if (which === 'Intern') {
@@ -52,11 +48,7 @@ const promptTeam = () => {
                 const intern = new Intern(name, id, email, school);
 
                 teamMatesArr.push(intern);
-              //  return intern;
             })
-            // .then(intern => {
-            //     return generateCardObj.internCard(intern);
-            // })
             .then(promptTeam)
         }
         else if ( which === 'Finalize' ) {
