@@ -97,7 +97,6 @@ function generateInt(internsArr){
     console.log("newCArD:", newCard)
     
     function makeCard(element, index, internsArr){
-        index++
         for(let i = 0; i <= internsArr.length; i++) {
 
             const [ intern ] = internsArr;
